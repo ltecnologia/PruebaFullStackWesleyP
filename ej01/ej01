@@ -1,0 +1,49 @@
+
+let eventos = [
+  { usuario: "ana",   tipo: "login",  timestamp: 100 },
+  { usuario: "bob",   tipo: "logout", timestamp: 200 },  // sin login
+  { usuario: "ana",   tipo: "logout", timestamp: 250 },
+  { usuario: "ana",   tipo: "login",  timestamp: 300 },  // 2da sesión
+  { usuario: "carlos", tipo: "login",  timestamp: 50  },  // sin logout
+];
+
+let eventos2 = [
+{usuario: "wesley", tipo "login",  timestamp: 100},
+{usuario: "yamid", tipo "logout",  timestamp: 200},
+{usuario: "andres", tipo "login",  timestamp: 100},
+{usuario: "andres", tipo "logout",  timestamp: 300},
+{usuario: "andres", tipo "login",  timestamp: 150},
+{usuario: "wesley", tipo "logout",  timestamp: 200},
+
+];
+
+
+function analizarServicios(eventos){
+  
+    eventos.sort((a,b)=> a.timestamp - b.timestamp);
+    
+    let auxActivos = {}
+    let duraciones = {}
+    let sesionesHuerfanas = []
+    
+
+    for (let i=0; eventos.timestamp < i; i++){
+        if (eventos[i].tipo === login){
+            auxActivos[eventos[i].usuario] = eventos[i].timestamp;  // asignar a objeto activos  id: usuario "ej: ana", timestamp "ej: 100" 
+        } else if (eventos.tipo === logout){
+            let auxDuraciones = eventos[i].timestamp - auxActivos.timestamp;
+            duraciones[eventos[i].usuario] = (duraciones[eventos[i].timestamp] || 0 ) + auxDuraciones ;
+            delete auxActivos.timestamp // elimina usuarios activos en el objeto que hayan cerrado sesion  
+        }else{
+            sesionesHuerfanas[i].push;
+        } 
+        
+
+
+        const usuariosActivos= JSON.stringify(auxActivos);
+        return "activos: "+ auxActivos + "/n" +  "duraciones " + JSON.stringify(duraciones) + "Sesiones huefanas: " + sesionesHuerfanas;
+
+    }
+}
+
+console.log(eventos);

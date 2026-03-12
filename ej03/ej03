@@ -1,0 +1,66 @@
+let cantalogo = { 
+"A1": { precio: 10000, stock: 20 },
+"B2": { precio: 5000,  stock: 3  },
+"C3": { precio: 25000, stock: 10 } };
+
+
+let cupones = { "VERANO20":  { tipo: "porcentaje", valor: 20, minimo: 50000 }, 
+"FIJO5000": { tipo: "fijo",       valor: 5000, minimo: 20000 } };
+
+// Carrito — caso de prueba
+let Carrito = [{ sku: "A1", cantidad: 6 }, { sku: "C3", cantidad: 2 }];
+
+ function procesarCarrito(carrito,catalogo,cupones){
+
+    let SKU = carrito.sku;
+    let auxCatalogo = catalogo.SKU;
+    //stock
+    
+    for (i=0; carrito < i; i++ ){
+
+        let subtotal =0;
+        let subtotalBruto =0;
+        let  descVol =0;
+        let subtotalDescuento =0;
+        let descuentoCupon =0;
+        let baseGravable= 0;
+        let iva =0 ;
+        let total=0;
+
+        if(carrito[i].cantidad > auxCatalogo.stock){
+            return "stock suficiente, cantiadad en carrito: " + carrito.cantidad + "/n  cantidad en catalogo: " + auxCatalogo.stock;
+        } else{
+            subtotalBruto = auxCatalogo[i].precio * carrito[i].cantidad;}
+            if (carrito[i].cantidad >= 5){
+                descVol = (0.10 * auxCatalogo.precio);
+                subtotalDescuento = descVol - subtotalBruto;
+            }
+
+        cupon = cupones["VERANO20"]
+        if (subtotalDescuento > cupon.minimo){
+            descuentoCupon =  (subtotalDescuento * 0.20);
+        }
+         
+
+        baseGravable = subtotalDescuento -  descuentoCupon;
+        iva = (baseGravable * 0.20);
+        total = iva + baseGravable;
+
+
+        return 
+        "subtotal: " + subtotal +"(/n)"+ 
+        "subtotalBruto" + subtotalBruto +"(/n)"+
+        "descVol" + descVol +"(/n)"+
+        "subtotalDescuento" + subtotalDescuento +"(/n)"+
+        "descuentoCupon " +descuentoCupon   +"(/n)"+
+        "baseGravable" +baseGravable +"(/n)"+
+        "iva " +iva  +"(/n)"+
+        " total " + total 
+
+
+
+    }
+    
+}          
+
+console.log (procesarCarrito(carrito,catalogo,cupones));
